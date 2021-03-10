@@ -12,11 +12,13 @@ public class CameraController : MonoBehaviour
     public float minHeight, maxHeight;
 
     private float lastXPosition;
+    private float lastYPosition;
 
     // Start is called before the first frame update
     void Start()
     {
         lastXPosition = transform.position.x;
+        lastYPosition = transform.position.y;
     }
 
     // Update is called once per frame
@@ -39,6 +41,7 @@ public class CameraController : MonoBehaviour
 
 
         float amountToMoveX = transform.position.x - lastXPosition;
+        float amountToMoveY = transform.position.y - lastYPosition;
 
         //moving different parts of bg at slower or faster pace for parallax effect
         farBG.position += new Vector3(amountToMoveX, 0f, 0f);

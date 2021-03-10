@@ -8,6 +8,13 @@ public class PlayerHealthController : MonoBehaviour
 
     public int currentHealth, maxHealth;
 
+    public float invincibleLength;
+    private float invincibleCounter;
+
+    private SpriteRenderer theSR;
+
+    public GameObject deathEffect;
+
     private void Awake() {
         instance = this;
     }
@@ -16,21 +23,52 @@ public class PlayerHealthController : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        theSR = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(invincibleCounter > 0) {
+            //Time.deltaTime - 1/frameRate
+            invincibleCounter -= Time.deltaTime;
+            if (invincibleCounter <= 0) {
+                theSR.color = new Color(theSR.color.r, theSR.color.g, theSR.color.b, 1f);
+            }
+        }
     }
 
     public void dealDamage() {
-        currentHealth--;
-        if(currentHealth <= 0) {
-            currentHealth = 0;
-            gameObject.SetActive(false);
-        }
 
+        if (invincibleCounter <= 0) {
+
+            currentHealth--;
+            if (currentHealth <= 0) {
+                currentHealth = 0;
+                //gameObject.SetActive(false); moved to level manager
+
+                Instantiate(deathEffect, transform.position, transform.rotation);
+
+                LevelManager.instance.respawnPlayer();
+            }
+            else {
+                invincibleCounter = invincibleLength;
+                theSR.color = new Color(theSR.color.r, theSR.color.g, theSR.color.b, 0.7f);
+
+                PlayerController.instance.knockBack();
+                AudioManager.instance.playSFX(4);
+            }
+
+            UIController.instance.updateHealthDisplay();
+        }
+    }
+
+
+    public void healPlayer() {
+        currentHealth++;
+        if (currentHealth > maxHealth) {
+            currentHealth = maxHealth;
+        }
         UIController.instance.updateHealthDisplay();
     }
 }

@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
 
     public Sprite heartFull, heartEmpty;
 
+    public Text coinText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,5 +56,10 @@ public class UIController : MonoBehaviour
                 heart3.sprite = heartEmpty;
                 break;
         }
+    }
+
+
+    public void updateCoinCount() {
+        coinText.text = LevelManager.instance.coinsCollected.ToString();
     }
 }
