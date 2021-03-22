@@ -38,13 +38,13 @@ public class LevelManager : MonoBehaviour
         PlayerController.instance.gameObject.SetActive(false);
         AudioManager.instance.playSFX(6); // after destroying player obj
 
-        yield return new WaitForSeconds(waitToRespawn);
+        yield return new WaitForSeconds(waitToRespawn); // wait after death and respawn
 
-        PlayerController.instance.gameObject.SetActive(true);
+        PlayerController.instance.transform.position = CheckpointController.instance.spawnPoint; // set spawn point
 
-        PlayerController.instance.transform.position = CheckpointController.instance.spawnPoint;
+        PlayerHealthController.instance.currentHealth = PlayerHealthController.instance.maxHealth; // set hp and update hp displayed
+        UIController.instance.updateHealthDisplay(); // update to full hp after death
 
-        PlayerHealthController.instance.currentHealth = PlayerHealthController.instance.maxHealth;
-        UIController.instance.updateHealthDisplay();
+        PlayerController.instance.gameObject.SetActive(true); // set player to active
     }
 }

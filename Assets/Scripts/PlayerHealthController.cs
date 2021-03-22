@@ -8,8 +8,8 @@ public class PlayerHealthController : MonoBehaviour
 
     public int currentHealth, maxHealth;
 
-    public float invincibleLength;
-    private float invincibleCounter;
+    public float invincibleLength; // invinsibility after hit duration
+    private float invincibleCounter; // count down to 0
 
     private SpriteRenderer theSR;
 
@@ -43,17 +43,17 @@ public class PlayerHealthController : MonoBehaviour
         if (invincibleCounter <= 0) {
 
             currentHealth--;
+
             if (currentHealth <= 0) {
                 currentHealth = 0;
-                //gameObject.SetActive(false); moved to level manager
 
+                //gameObject.SetActive(false); moved to level manager
                 Instantiate(deathEffect, transform.position, transform.rotation);
 
                 LevelManager.instance.respawnPlayer();
-            }
-            else {
-                invincibleCounter = invincibleLength;
-                theSR.color = new Color(theSR.color.r, theSR.color.g, theSR.color.b, 0.7f);
+            } else {
+                invincibleCounter = invincibleLength; 
+                theSR.color = new Color(theSR.color.r, theSR.color.g, theSR.color.b, 0.7f); // displaying inv - set to transparent
 
                 PlayerController.instance.knockBack();
                 AudioManager.instance.playSFX(4);

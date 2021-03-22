@@ -29,7 +29,7 @@ public class Stompbox : MonoBehaviour
 
             Instantiate(deathEffect, other.transform.position, other.transform.rotation);
 
-            PlayerController.instance.bounce();
+            PlayerController.instance.bounce(); 
 
             float dropSelect = Random.Range(0, 100f);
 

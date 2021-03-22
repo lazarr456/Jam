@@ -24,7 +24,7 @@ public class DamagePlayer : MonoBehaviour
             // find obj's method dealDamage();
             //FindObjectOfType<PlayerHealthController>().dealDamage(); 
 
-            //created an instance of an object easier access 
+            //created an instance of an object - easier access 
             PlayerHealthController.instance.dealDamage();
         }
     }

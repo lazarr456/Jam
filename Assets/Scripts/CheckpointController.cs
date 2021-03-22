@@ -7,7 +7,7 @@ public class CheckpointController : MonoBehaviour
 
     public static CheckpointController instance;
 
-    private Checkpoint[] checkpoints;
+    private Checkpoint[] checkpoints; // array of cps
 
     public Vector3 spawnPoint;
 
@@ -30,14 +30,14 @@ public class CheckpointController : MonoBehaviour
     }
 
 
-    public void deactivateCheckpoints() {
+    public void deactivateCheckpoints() { // loop through all cps and reset
         for(int i = 0; i < checkpoints.Length; i++) {
             checkpoints[i].resetCheckpoint();
         }
     }
 
 
-    public void setSpawnPoint(Vector3 newSpawnPoint) {
+    public void setSpawnPoint(Vector3 newSpawnPoint) { // assign new spawn point - called/set in cp.cs
         spawnPoint = newSpawnPoint;
     }
 }
